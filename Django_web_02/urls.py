@@ -19,5 +19,5 @@ from Django_web_02.views import Sub
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('main/', Sub.as_view())
+    path('', Sub.as_view())
 ]
