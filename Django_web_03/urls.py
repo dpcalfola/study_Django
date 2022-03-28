@@ -23,3 +23,6 @@ urlpatterns = [
     path('mySecondWeb', include('my_second_web.urls')),
     path('', include('myWeb.urls'))
 ]
+
+
+# url 패턴은 setting.py INSTALLED_APPS 에 설정하지 않더라도 작동함
