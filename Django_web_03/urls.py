@@ -20,8 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path('myWeb/', include('myWeb.urls')),
-    path('mySecondWeb', include('my_second_web.urls')),
-    path('', include('myWeb.urls'))
+    path('mySecondWeb/', include('my_second_web.urls')),
+    path('pyfo/', include('pyfo.urls')),
+    path('', include('myWeb.urls')),
 ]
 
 
