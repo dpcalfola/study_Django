@@ -29,7 +29,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'polls.apps.PollsConfig',
+    'pyfo.apps.PyfoConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,10 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 'myWeb',
-    # 'polls',
-    # 'my_second_web'
 
 ]
 
