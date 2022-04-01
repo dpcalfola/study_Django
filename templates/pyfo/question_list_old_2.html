@@ -84,6 +84,17 @@
     </table>
 </div>
 
+<hr></hr>
+{% if question_list %}
+    <ul>
+        {% for question in question_list %}
+            <li><a href="{% url 'pyfo:detail' question.id %}">Question {{ question.id }}. {{ question.subject }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>There's no question</p>
+{% endif %}
 
 
 

@@ -133,3 +133,9 @@ dmypy.json
 
 # mymemo
 mymemo
+
+# node_modules
+node_modules
+
+# bootstrap
+bootstrap
