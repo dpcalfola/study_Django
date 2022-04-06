@@ -39,4 +39,6 @@
 
 .account_create_form {
     text-align: center;
+    max-width: 500px;
+    margin: 4rem auto;
 }

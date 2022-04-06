@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-    <div class="account_create_form" >
-        <form class="account_create_form"  action="{% url 'accountapp:create' %}" method="post">
+    <div class="account_create_form">
+        <div>
+            <h4>Sign up</h4>
+        </div>
+        <form class="account_create_form" action="{% url 'accountapp:create' %}" method="post">
             {% csrf_token %}
-            {{ form }}
-
-            <input type="submit" class="btn btn-primary">
+            {#            {{ form }}#}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-dark col-6 mt-3 rounded-pill">
         </form>
 
     </div>

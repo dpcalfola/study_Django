@@ -1,24 +1,26 @@
 <div class="header_div">
     <div><h1 class="Folamatic_main_logo">Folamatic</h1></div>
     <div>
-        <span>nav1</span>
-        <span>nav2</span>
-        <span>nav3</span>
+        <span class="mx-3">nav1</span>
+        <span class="mx-3">nav2</span>
+        <span class="mx-3"> nav3</span>
         {#    LoginView, LogoutView Redirect Order   #}
         {# 1. next   #}
         {# 2. LOGIN_REDIRECT_URL (setting.py)   #}
         {# 3. default   #}
         {% if not user.is_authenticated %}
             <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
-                <span>login</span>
+                <span class="mx-3">login</span>
             </a>
+            <a href="{% url 'accountapp:create' %}"><span class="mx-3">signup</span></a>
         {% else %}
             <a href="{% url 'accountapp:logout' %}?next={{ request.path }}">
-                <span>logout</span>
+                <span class="mx-3">logout</span>
             </a>
+
         {% endif %}
 
-        <span>nav4</span>
+
     </div>
 
 </div>
