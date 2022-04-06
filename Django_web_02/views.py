@@ -10,4 +10,5 @@ class Sub(APIView):
 
     def post(self, request):
         print('post 호출')
+
         return render(request, "Django_web_02/main.html")
