@@ -1,0 +1,33 @@
+.folamatic_footer_logo {
+    margin-top: 1rem;
+    font-family: 'Babylonica', cursive;
+    font-size: 2rem;
+    font-weight: bold
+}
+
+.Folamatic_main_logo {
+    font-family: 'Babylonica', cursive;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.header_div {
+    text-align: center;
+    margin: 2rem 0;
+
+}
+
+.footer_div {
+    text-align: center;
+    margin-top: 2rem
+}
+
+.footer_top_div {
+    font-size: .6rem
+
+}
+
+.footer_bottom_div {
+    margin-top: 1rem
+
+}
