@@ -1,0 +1,22 @@
+{
+  "name": "django_web_03",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dpcalfola/Django_web_03.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dpcalfola/Django_web_03/issues"
+  },
+  "homepage": "https://github.com/dpcalfola/Django_web_03#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
