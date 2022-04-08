@@ -1,5 +1,5 @@
 from django import forms
-from pyfo.models import Question
+from pyfo.models import Question, Answer
 
 
 class QuestionForm(forms.ModelForm):
@@ -25,3 +25,12 @@ class QuestionForm(forms.ModelForm):
         #         'rows': 10
         #     })
         # }
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['content']
+        labels = {
+            'content': '답변내용'
+        }
