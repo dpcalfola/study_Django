@@ -1,67 +1,75 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+{% extends 'pyfo/base.html' %}
 
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% block body_content %}
+    <div class="container my-3">
+        {# Question contents area #}
+        <div>
+            {% if question %}
 
-    <title>Document</title>
-</head>
-<body>
+                <h2>{{ question.subject }}</h2>
+                <span> 작성 시각: {{ question.create_date }}</span>
+                <br>
+                <div class="card my-3">
+                    <div class="card-body">
+                        <div class="card-text" style="white-space: pre-line">
+                            {{ question.content }}
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            {#   d-flex : 자기자신은 block, 자식은 in-line 으로 만들어준다   #}
+                            {#   justif-content-? 자식요소들의 정렬 기준 #}
+                            {#   : start, end, center, between(양쪽 요소를 좌우에 붙이고 안쪽 요소들을 균일한 간격으로 배치), around(전체요소를 균일한 간격으로 배치)   #}
+                            {{ question.create_date }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <h3>No question number</h3>
+            {% endif %}
+        </div>
+
+        {# Answer content area #}
+        <div>
+            <h5 class="border-bottom my-3 py-3">
+                {{ question.answer_set.count }}개의 답변이 있습니다.
+            </h5>
+            {% for answer in question.answer_set.all %}
+                <div class="card my-3">
+                    <div class="card-body">
+                        <div class="card-text" style="white-space: pre-line">
+                            {{ answer.content }}
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="badge bg-light text-dark">
+                                {{ answer.create_date }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
 
 
-<h3>Question_detail.html</h3>
-<hr>
-{# Question contents area #}
-<div>
-    {% if question %}
+        </div>
 
-        <h1>{{ question.subject }}</h1>
-        <span> 작성 시각: {{ question.create_date }}</span>
-        <br>
+        <hr>
+        {# Reply contents area #}
+        <div>
+            <form action="{% url 'pyfo:answer_create' question.id %}" method="post" class="my-3">
+                {% csrf_token %}
+                <div class="form-floating">
+                    <label for="content"></label>
+                    <textarea name="content" id="content" class="form-control my-3" style="height: 10rem"></textarea>
+                </div>
+                <input type="submit" value="답변 등록" class="btn btn-primary">
+
+            </form>
+        </div>
+
+
         <p>
-            {{ question.content }}
+            <a href="{% url 'pyfo:index' %}">질문 리스트 페이지로 돌아가기</a>
         </p>
 
-    {% else %}
-        <h3>No question number</h3>
-
-    {% endif %}
-</div>
-
-{# Answer content area #}
-<div>
-    <h5>{{ question.answer_set.count }}개의 답변이 있습니다.</h5>
-    <div>
-        <ul>
-            {% for answer in question.answer_set.all %}
-                <li>{{ answer.content }}</li>
-            {% endfor %}
-        </ul>
     </div>
-
-
-</div>
-
-<hr>
-{# Reply contents area #}
-<div>
-    <form action="{% url 'pyfo:answer_create' question.id %}" method="post">
-        {% csrf_token %}
-        <label for="content"></label><textarea name="content" id="content" rows="8"></textarea>
-        <br>
-        <input type="submit" value="답변 등록">
-    </form>
-</div>
-
-
-<p>
-    <a href="{% url 'pyfo:index' %}">질문 리스트 페이지로 돌아가기</a>
-</p>
-
-</body>
-</html>
+{% endblock %}
