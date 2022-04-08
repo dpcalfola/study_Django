@@ -13,13 +13,15 @@ class QuestionForm(forms.ModelForm):
             'content': '내용'
         }
 
-        # Django form 에 태그 속성 부여
-        widgets = {
-            'subject': forms.TextInput(attrs={
-                'class': 'form-control'
-            }),
-            'content': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 10
-            })
-        }
+        # 세밀한 html 디자인을 위해 위젯 주석처리
+        #
+        # # Django form 에 태그 속성 부여
+        # widgets = {
+        #     'subject': forms.TextInput(attrs={
+        #         'class': 'form-control'
+        #     }),
+        #     'content': forms.Textarea(attrs={
+        #         'class': 'form-control',
+        #         'rows': 10
+        #     })
+        # }

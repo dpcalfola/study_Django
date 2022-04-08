@@ -10,8 +10,7 @@
                 <div class="alert alert-danger" role="alert">
                     {% for field in form %}
                         {% if field.errors %}
-                            <strong>{{ field.label }}</strong>
-                            <h6 class="my-2 mb-3 mx-2">필수 항목입니다</h6>
+                            <strong>{{ field.errors }}</strong>
                         {% endif %}
 
                     {% endfor %}
@@ -20,8 +19,8 @@
             {#  Error handleing code End   #}
 
             {#  Question Create Form Start  #}
-            <div class="form-group my-4">
-                <label for="subject" class="mb-2">제목</label>
+            <div class="form-group">
+                <label for="subject">제목</label>
                 <input
                         type="text"
                         class="form-control"
@@ -30,23 +29,22 @@
                         value="{{ form.subject.value|default_if_none:'' }}">
             </div>
 
-            <div class="form-group my-4">
-                <label for="content" class="mb-2">내용</label>
+
+            <div class="form-group">
+                <label for="content">내용</label>
                 <textarea
                         name="content"
                         id="content"
                         rows="10"
                         class="form-control"
                 >
-                    {# |default_if_none:''  매우 잘 동작함 (새로고침 했을 때 None 출력을 막아준다  #}
                     {{ form.content.value|default_if_none:'' }}
+
                 </textarea>
             </div>
+            <hr>
+            {{ form.as_p }}
             <button type="submit" class="btn btn-primary">저장하기</button>
         </form>
-    </div>
-    <hr>
-    <div class="container">
-        <a class="btn btn-secondary" href={% url 'pyfo:index' %}> 질문 리스트로 </a>
     </div>
 {% endblock %}
