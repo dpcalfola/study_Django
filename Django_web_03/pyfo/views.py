@@ -1,7 +1,7 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from rest_framework.views import APIView
 
 from .forms import QuestionForm, AnswerForm
 from .models import Question, Answer
@@ -14,9 +14,18 @@ def index(request):
     """
     pyfo 목록 출력
     """
-    question_list = Question.objects.order_by('-create_date')
-    context = {'question_list': question_list}
 
+    # input parameter
+    page = request.GET.get('page', 1)
+
+    # search
+    question_list = Question.objects.order_by('-create_date')
+
+    # paging
+    paginator = Paginator(question_list, 10)
+    page_obj = paginator.get_page(page)
+
+    context = {'question_list': page_obj}
     return render(request, 'pyfo/question_list.html', context)
 
 
@@ -70,6 +79,10 @@ def question_create(request):
 
     context = {'form': form}
     return render(request, 'pyfo/question_form.html', context)
+
+
+# 질문 삭제
+# def question_delete(request):
 
 
 #
