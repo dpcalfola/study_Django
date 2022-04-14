@@ -18,14 +18,21 @@ def index(request):
     # input parameter
     page = request.GET.get('page', 1)
 
-    # search
+    # Get all Question object
     question_list = Question.objects.order_by('-create_date')
 
-    # paging
-    paginator = Paginator(question_list, 10)
+    # Paginator
+    per_page = 20
+    paginator = Paginator(question_list, per_page)
     page_obj = paginator.get_page(page)
 
-    context = {'question_page_obj': page_obj}
+    # Get max page index
+    max_index = len(paginator.page_range)
+
+    context = {
+        'question_page_obj': page_obj,
+        'max_index': max_index,
+    }
     return render(request, 'pyfo/question_list.html', context)
 
 
@@ -54,6 +61,7 @@ def answer_create(request, question_id):
         if form.is_valid():
             answer = form.save(commit=False)
             answer.create_date = timezone.now()
+            answer.question = question
             answer.save()
             return redirect('pyfo:detail', question_id=question.id)
     else:

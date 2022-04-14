@@ -5,7 +5,7 @@
 {% block body_content %}
     <div class="container my-3">
 
-        <table class="table">
+        <table class="table table-hover table-sm">
 
 
             <thead>
@@ -23,7 +23,17 @@
                         {# question_page_obj.start_index == Start index of thrown object that has paginated pages (1, 11, 21, 31 ...)   #}
                         {# forloop.counter0 == Loop counter in for clause (0, 1, 2, 3 ...)                                              #}
                         <td>{{ question_page_obj.paginator.count|sub:question_page_obj.start_index|sub:forloop.counter0|add:1 }}</td>
-                        <td><a href="{% url 'pyfo:detail' question.id %}">{{ question.subject }}</a></td>
+                        <td>
+                            <a class="text-decoration-none text-dark" href="{% url 'pyfo:detail' question.id %}">
+                                {{ question.subject }}
+                                {% if question.answer_set.count > 0 %}
+                                    <span class="text-danger small ms-2">
+                                        {{ question.answer_set.count }}
+                                    </span>
+
+                                {% endif %}
+                            </a>
+                        </td>
                         <td>{{ question.create_date }}</td>
                     </tr>
                 {% endfor %}
@@ -33,7 +43,7 @@
 
         </table>
         <div class="container my-3">
-            <a href="{% url 'pyfo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+            <a class="btn btn-primary bg-secondary opacity-75" href="{% url 'pyfo:question_create' %}">질문 등록하기</a>
         </div>
 
 
@@ -43,11 +53,11 @@
             {# Previous Page #}
             {% if question_page_obj.has_previous %}
 
-                <li class="page-item">
-                    <a class="page-link" href="?page=1">처음</a>
+                <li class="page-item bg-secondary">
+                    <a class="page-link text-dark" href="?page=1">처음</a>
                 </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ question_page_obj.previous_page_number }}">이전</a>
+                <li class="page-item bg-secondary">
+                    <a class="page-link text-dark" href="?page={{ question_page_obj.previous_page_number }}">이전</a>
                 </li>
 
             {% else %}
@@ -73,13 +83,13 @@
                         <li class="page-item active" aria-current="page">
                             {# class="active" -> 선택된 페이지의 배경색 강조 #}
                             {# aria- 태그는 모두 저시력자의 읽기 도구와 관련된 태그임 #}
-                            <a class="page-link" href="?page={{ page_number }}">
+                            <a class="page-link bg-secondary opacity-75" href="?page={{ page_number }}">
                                 {{ page_number }}
                             </a>
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ page_number }}">
+                            <a class="page-link text-secondary" href="?page={{ page_number }}">
                                 {{ page_number }}
                             </a>
                         </li>
@@ -96,12 +106,18 @@
             {# Next page #}
             {% if question_page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ question_page_obj.next_page_number }}">다음</a>
+                    <a class="page-link text-dark" href="?page={{ question_page_obj.next_page_number }}">다음</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" href="?page={{ max_index }}">마지막</a>
                 </li>
             {% else %}
-                <li class="page-item">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                <li class="page-item disabled">
+                    <a class="page-link text-dark" tabindex="-1" aria-disabled="true" href="#">다음</a>
                     {# aria-disabled="true" 저시력자를 위한 읽기 도구가 (a) 태그를 읽지 않도록 명시함 #}
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link text-dark" tabindex="-1" aria-disabled="true" href="#">마지막1</a>
                 </li>
             {% endif %}
         </ul>
