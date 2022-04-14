@@ -1,4 +1,6 @@
 {% extends 'pyfo/base.html' %}
+{% load pyfo_filter %}
+
 
 {% block body_content %}
     <div class="container my-3">
@@ -14,16 +16,20 @@
             </tr>
             </thead>
             <tbody>
-            {% if question_list %}
-                {% for question in question_list %}
+            {% if question_page_obj %}
+                {% for question in question_page_obj %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
+                        {# paginator.count == The numboer of whole pages (305, 305, 305 ...)                                            #}
+                        {# question_page_obj.start_index == Start index of thrown object that has paginated pages (1, 11, 21, 31 ...)   #}
+                        {# forloop.counter0 == Loop counter in for clause (0, 1, 2, 3 ...)                                              #}
+                        <td>{{ question_page_obj.paginator.count|sub:question_page_obj.start_index|sub:forloop.counter0|add:1 }}</td>
                         <td><a href="{% url 'pyfo:detail' question.id %}">{{ question.subject }}</a></td>
                         <td>{{ question.create_date }}</td>
                     </tr>
                 {% endfor %}
             {% endif %}
             </tbody>
+
 
         </table>
         <div class="container my-3">
@@ -35,13 +41,13 @@
         <ul class="pagination justify-content-center">
 
             {# Previous Page #}
-            {% if question_list.has_previous %}
+            {% if question_page_obj.has_previous %}
 
                 <li class="page-item">
                     <a class="page-link" href="?page=1">처음</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ question_list.previous_page_number }}">이전</a>
+                    <a class="page-link" href="?page={{ question_page_obj.previous_page_number }}">이전</a>
                 </li>
 
             {% else %}
@@ -56,14 +62,14 @@
 
 
             {# Page list #}
-            {% for page_number in question_list.paginator.page_range %}
+            {% for page_number in question_page_obj.paginator.page_range %}
 
 
                 {# Page list range condition #}
                 {# -5 ~ +5 사이 값일 경우에만 #}
-                {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+                {% if page_number >= question_page_obj.number|add:-5 and page_number <= question_page_obj.number|add:5 %}
 
-                    {% if page_number == question_list.number %}
+                    {% if page_number == question_page_obj.number %}
                         <li class="page-item active" aria-current="page">
                             {# class="active" -> 선택된 페이지의 배경색 강조 #}
                             {# aria- 태그는 모두 저시력자의 읽기 도구와 관련된 태그임 #}
@@ -88,9 +94,9 @@
 
 
             {# Next page #}
-            {% if question_list.has_next %}
+            {% if question_page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ question_list.next_page_number }}">다음</a>
+                    <a class="page-link" href="?page={{ question_page_obj.next_page_number }}">다음</a>
                 </li>
             {% else %}
                 <li class="page-item">

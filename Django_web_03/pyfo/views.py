@@ -25,7 +25,7 @@ def index(request):
     paginator = Paginator(question_list, 10)
     page_obj = paginator.get_page(page)
 
-    context = {'question_list': page_obj}
+    context = {'question_page_obj': page_obj}
     return render(request, 'pyfo/question_list.html', context)
 
 
