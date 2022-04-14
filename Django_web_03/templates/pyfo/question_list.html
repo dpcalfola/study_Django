@@ -4,6 +4,8 @@
     <div class="container my-3">
 
         <table class="table">
+
+
             <thead>
             <tr class="bg-info">
                 <th>번호</th>
@@ -24,7 +26,81 @@
             </tbody>
 
         </table>
-        <a href="{% url 'pyfo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+        <div class="container my-3">
+            <a href="{% url 'pyfo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+        </div>
+
+
+        {# Paging Start #}
+        <ul class="pagination justify-content-center">
+
+            {# Previous Page #}
+            {% if question_list.has_previous %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">처음</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ question_list.previous_page_number }}">이전</a>
+                </li>
+
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">처음</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                    {# TAG : tabindex="-1" -> tab 키를 눌렀을때 반응하지 않도록 만듬 #}
+                </li>
+            {% endif %}
+
+
+            {# Page list #}
+            {% for page_number in question_list.paginator.page_range %}
+
+
+                {# Page list range condition #}
+                {# -5 ~ +5 사이 값일 경우에만 #}
+                {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+
+                    {% if page_number == question_list.number %}
+                        <li class="page-item active" aria-current="page">
+                            {# class="active" -> 선택된 페이지의 배경색 강조 #}
+                            {# aria- 태그는 모두 저시력자의 읽기 도구와 관련된 태그임 #}
+                            <a class="page-link" href="?page={{ page_number }}">
+                                {{ page_number }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_number }}">
+                                {{ page_number }}
+                            </a>
+                        </li>
+                    {% endif %}
+
+                {% endif %}
+                {# Page list range condition end potint is here #}
+
+
+            {% endfor %}
+            {# Page list end #}
+
+
+            {# Next page #}
+            {% if question_list.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ question_list.next_page_number }}">다음</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                    {# aria-disabled="true" 저시력자를 위한 읽기 도구가 (a) 태그를 읽지 않도록 명시함 #}
+                </li>
+            {% endif %}
+        </ul>
+        {# Paging End #}
+
     </div>
 
 {% endblock %}
